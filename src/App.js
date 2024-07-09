@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import contracts, { loadContracts } from './contracts';
+import { ethers } from 'ethers';
+import { Counter_abi, Counter_address } from './contract.config';
 import MetaMaskChecker from './components/MetaMaskChecker';
 
 function App() {
@@ -10,17 +11,43 @@ function App() {
 
   useEffect(() => {
     const init = async () => {
-      try {
-        await loadContracts();
-        const Counter = contracts['Counter'];
-        const response = await Counter.incrementCount();
-        setResult(response);
-      } catch (err) {
-        setError('Error loading contracts: ' + err.message);
+      if (window.ethereum) {
+        try {
+          await window.ethereum.request({ method: 'eth_requestAccounts' });
+          const provider = new ethers.BrowserProvider(window.ethereum);
+          const contract = new ethers.Contract(Counter_address, Counter_abi, provider);
+
+          // Load the initial count value
+          const initialCount = await contract.count();
+          setResult(initialCount.toNumber());
+        } catch (err) {
+          setError('Error loading contracts: ' + err.message);
+        }
+      } else {
+        setError('MetaMask is not installed. Please install it to use this app.');
       }
     };
     init();
   }, []);
+
+  const incrementCount = async () => {
+    if (window.ethereum) {
+      try {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+		const signer = await provider.getSigner();
+
+        const contract = new ethers.Contract(Counter_address, Counter_abi, signer);
+
+        const tx = await contract.incrementCount();
+        await tx.wait();
+
+        const updatedCount = await contract.count();
+        setResult(updatedCount.toNumber());
+      } catch (err) {
+        setError('Error incrementing count: ' + err.message);
+      }
+    }
+  };
 
   return (
     <div className="App">
@@ -37,7 +64,8 @@ function App() {
         </a>
         <MetaMaskChecker />
         {error && <p style={{ color: 'red' }}>{error}</p>}
-        {result ? <p>Result: {result}</p> : <p>Loading...</p>}
+        {result !== null ? <p>Counter: {result}</p> : <p>Loading...</p>}
+        <button onClick={incrementCount}>Increment Count</button>
       </header>
     </div>
   );

@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { ethers } from 'ethers';
 
 const loadBlockchainData = async (setError) => {
-  const web3 = window.web3;
-  const accounts = await web3.eth.getAccounts();
-  if (accounts.length === 0) {
-    setError('No accounts found. Please check MetaMask.');
+  try {
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const accounts = await provider.listAccounts();
+    if (accounts.length === 0) {
+      setError('No accounts found. Please check MetaMask.');
+    }
+  } catch (error) {
+    setError('Error loading accounts: ' + error.message);
   }
 };
 
@@ -38,8 +43,7 @@ const MetaMaskChecker = () => {
 
   useEffect(() => {
     const initialize = async () => {
-      const web3 = window.web3;
-      if (web3) {
+      if (window.ethereum) {
         await loadBlockchainData(setError);
       } else {
         const browser = detectBrowser();
@@ -57,7 +61,15 @@ const MetaMaskChecker = () => {
       {error ? (
         <div>
           <p>{error}</p>
-          <a type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded" href={extensionLink} target="_blank" rel="noopener noreferrer">Install MetaMask</a>
+          <a
+            type="button"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded"
+            href={extensionLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Install MetaMask
+          </a>
         </div>
       ) : (
         <div>
