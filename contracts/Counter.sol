@@ -5,6 +5,6 @@ contract Counter {
 	uint public count = 0;
 
 	function incrementCount() public {
-		count = count +1;
+		count = count + 1;
 	}
 }

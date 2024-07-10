@@ -19,7 +19,8 @@ function App() {
 
           // Load the initial count value
           const initialCount = await contract.count();
-          setResult(initialCount.toNumber());
+          console.log(initialCount.toString());
+          setResult(initialCount.toString());
         } catch (err) {
           setError('Error loading contracts: ' + err.message);
         }
@@ -34,15 +35,15 @@ function App() {
     if (window.ethereum) {
       try {
         const provider = new ethers.BrowserProvider(window.ethereum);
-		const signer = await provider.getSigner();
-
+        const signer = await provider.getSigner();
         const contract = new ethers.Contract(Counter_address, Counter_abi, signer);
 
         const tx = await contract.incrementCount();
         await tx.wait();
 
         const updatedCount = await contract.count();
-        setResult(updatedCount.toNumber());
+        console.log(updatedCount.toString());
+        setResult(updatedCount.toString());
       } catch (err) {
         setError('Error incrementing count: ' + err.message);
       }
