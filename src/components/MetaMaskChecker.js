@@ -48,6 +48,8 @@ const MetaMaskChecker = () => {
       } else {
         const browser = detectBrowser();
         const link = getExtensionLink(browser);
+        console.log('Detected browser:', browser);
+        console.log('Extension link:', link);
         setExtensionLink(link);
         setError('MetaMask is not installed. Please install MetaMask to continue.');
       }

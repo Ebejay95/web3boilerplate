@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/jonathaneberle/Projekte/ETHGlobalHackathon/boilerplate/contracts/Counter.sol": {
-      "lastModificationDate": 1720475422415,
-      "contentHash": "1134ab426871d2e52db2bf17ab0a384f",
+      "lastModificationDate": 1720608448872,
+      "contentHash": "b4877bfb6d69e4482eaf9f62150c0767",
       "sourceName": "contracts/Counter.sol",
       "solcConfig": {
         "version": "0.8.24",
@@ -107,6 +107,42 @@
       ],
       "artifacts": [
         "MyContract"
+      ]
+    },
+    "/Users/jonathaneberle/Projekte/ETHGlobalHackathon/boilerplate/contracts/Tom.sol": {
+      "lastModificationDate": 1720610337619,
+      "contentHash": "6a1f8a9c41b489dab1296b4cdf1006a3",
+      "sourceName": "contracts/Tom.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Tom"
       ]
     }
   }

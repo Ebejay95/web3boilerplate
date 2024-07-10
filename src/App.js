@@ -1,73 +1,64 @@
-import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { ethers } from 'ethers';
-import { Counter_abi, Counter_address } from './contract.config';
-import MetaMaskChecker from './components/MetaMaskChecker';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
+import Home from './components/pages/Home';
+import About from './components/pages/About';
+import Contact from './components/pages/Contact';
 
-function App() {
-  const [result, setResult] = useState(null);
-  const [error, setError] = useState(null);
+function Nav() {
+  const location = useLocation();
 
-  useEffect(() => {
-    const init = async () => {
-      if (window.ethereum) {
-        try {
-          await window.ethereum.request({ method: 'eth_requestAccounts' });
-          const provider = new ethers.BrowserProvider(window.ethereum);
-          const contract = new ethers.Contract(Counter_address, Counter_abi, provider);
-
-          // Load the initial count value
-          const initialCount = await contract.count();
-          console.log(initialCount.toString());
-          setResult(initialCount.toString());
-        } catch (err) {
-          setError('Error loading contracts: ' + err.message);
-        }
-      } else {
-        setError('MetaMask is not installed. Please install it to use this app.');
-      }
-    };
-    init();
-  }, []);
-
-  const incrementCount = async () => {
-    if (window.ethereum) {
-      try {
-        const provider = new ethers.BrowserProvider(window.ethereum);
-        const signer = await provider.getSigner();
-        const contract = new ethers.Contract(Counter_address, Counter_abi, signer);
-
-        const tx = await contract.incrementCount();
-        await tx.wait();
-
-        const updatedCount = await contract.count();
-        console.log(updatedCount.toString());
-        setResult(updatedCount.toString());
-      } catch (err) {
-        setError('Error incrementing count: ' + err.message);
-      }
-    }
+  const getLinkClass = (path) => {
+    return location.pathname === path ? 'text-red-500' : '';
   };
 
   return (
+    <nav>
+      <ul className="flex space-x-4">
+        <li>
+          <Link
+            to="/"
+            className={getLinkClass('/')}
+          >
+            Home
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/about"
+            className={getLinkClass('/about')}
+          >
+            About
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/contact"
+            className={getLinkClass('/contact')}
+          >
+            Contact
+          </Link>
+        </li>
+      </ul>
+    </nav>
+  );
+}
+
+function App() {
+  return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Edit <code>src/App.js</code> and save to reload.</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <MetaMaskChecker />
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        {result !== null ? <p>Counter: {result}</p> : <p>Loading...</p>}
-        <button onClick={incrementCount}>Increment Count</button>
-      </header>
+      <Router>
+        <header className="App-header bg-blue-500 text-white p-4">
+          <h1 className="text-2xl font-bold">Project</h1>
+          <Nav />
+        </header>
+        <main className="p-4">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
+      </Router>
     </div>
   );
 }

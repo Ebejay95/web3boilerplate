@@ -6,7 +6,7 @@ require("dotenv").config();
 module.exports = {
   solidity: "0.8.24",
   networks: {
-    linea: {
+    sepolia: {
       url: process.env.SEPOLIA_API_URL,
       accounts: [`0x${process.env.SEPOLIA_PRIVATE_KEY}`]
     }
