@@ -24,6 +24,13 @@ contract MagicContract {
     // Array to store projects
     Project[] public projects;
 
+    // Events
+    event ProjectRegistered(string name, uint256 requiredFund, address ownerWallet);
+    event ShareChanged(uint256 projectId, uint256 shareIndex, uint256 fund, address wallet);
+    event StateChanged(uint256 projectId, string state);
+    event FundsReceived(address from, uint256 amount);
+    event RefundIssued(uint256 projectId, uint256 totalFund);
+
     // Register a new project
     function register(
         string memory _name,
@@ -50,6 +57,8 @@ contract MagicContract {
         });
 
         projects.push(newProject);
+
+        emit ProjectRegistered(_name, _requiredFund, _ownerWallet);
     }
 
     // Change share for a project
@@ -59,6 +68,8 @@ contract MagicContract {
 
         projects[_projectId].shares[_shareIndex].fund = _fund;
         projects[_projectId].shares[_shareIndex].wallet = _wallet;
+
+        emit ShareChanged(_projectId, _shareIndex, _fund, _wallet);
     }
 
     // Change state of a project
@@ -66,6 +77,8 @@ contract MagicContract {
         require(_projectId < projects.length, "Project does not exist.");
 
         projects[_projectId].state = _state;
+
+        emit StateChanged(_projectId, _state);
     }
 
     // Get all categories
@@ -99,11 +112,12 @@ contract MagicContract {
 
         // Reset funded amount to 0 after refund
         project.funded = 0;
+
+        emit RefundIssued(_projectId, totalFund);
     }
 
     // Function to receive funds
     receive() external payable {
-        // Logic to update the funded amount for the relevant project
-        // For example, you might want to implement this in another function
+        emit FundsReceived(msg.sender, msg.value);
     }
 }
