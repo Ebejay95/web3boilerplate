@@ -1,70 +1,48 @@
-# Getting Started with Create React App
+# web3boilerplate
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**A boilerplate for building decentralized applications (dApps) using Web3 technologies.**
 
-## Available Scripts
+This project serves as a foundation for developing dApps, integrating modern frontend technologies with Web3 features. It includes essential tools and configurations to accelerate the development process.
 
-In the project directory, you can run:
+## Structure
 
-### `npm start`
+### src/
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The `src` directory contains the core application logic and components:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **components/**: Reusable React components that make up the user interface.
+- **pages/**: Specific pages of the application, each corresponding to different routes.
+- **utils/**: Utility functions and helpers for interacting with Web3, smart contracts, and more.
+- **hooks/**: Custom React hooks for managing state and effects related to Web3.
 
-### `npm test`
+### public/
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The `public` directory contains static assets such as images, fonts, and the `index.html` file which serves as the entry point for the application.
 
-### `npm run build`
+### contracts/
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This directory stores the smart contracts, written in Solidity, which the dApp interacts with.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### package.json
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This file manages dependencies, scripts, and project metadata, ensuring a smooth development experience with Node.js and npm.
 
-### `npm run eject`
+### README.md
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Provides a comprehensive overview of the project, including setup instructions, usage guidelines, and documentation.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Features
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **Web3 Integration**: Connects to Ethereum blockchain using Web3.js or Ethers.js.
+- **React Components**: Modular components for building dynamic and responsive user interfaces.
+- **Smart Contract Interaction**: Facilitates interaction with smart contracts, including deployment and function calls.
+- **Wallet Integration**: Supports MetaMask and other Ethereum wallets for seamless user authentication.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Usage
 
-## Learn More
+To get started, clone the repository and install the dependencies:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+git clone https://github.com/Ebejay95/web3boilerplate.git
+cd web3boilerplate
+npm install
